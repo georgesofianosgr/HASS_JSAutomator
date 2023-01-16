@@ -17,6 +17,8 @@ AUTOMATIONS_PATH= Directory with the following files: devices.json + automationN
 
 
 ## Sample automation
+
+light_automation.ts
 ```javascript
 function automation({Light, Switch}: AutomationInput) {
   // Bathroom
@@ -42,5 +44,50 @@ function automation({Light, Switch}: AutomationInput) {
 export default {
   automations: [automation]
 }
+
+```
+
+devices.json
+```json
+[
+  {
+    "type": "LIGHT",
+    "name": "office",
+    "entityId": "light.office"
+  },
+  {
+    "type": "LIGHT",
+    "name": "bedroom",
+    "entityId": "light.bedroom_lights"
+  },
+  {
+    "type": "LIGHT",
+    "name": "hall",
+    "entityId": "light.hall"
+  },
+  {
+    "type": "LIGHT",
+    "name": "bathroom",
+    "entityId": "light.bathroom"
+  },
+  {
+    "type": "SWITCH",
+    "name": "office",
+    "entityId": "sensor.office_switch_action",
+    "batteryEntityId": "sensor.office_switch_battery"
+  },
+  {
+    "type": "SWITCH",
+    "name": "hallDouble",
+    "entityId": "sensor.hall_wall_switch_action",
+    "batteryEntityId": "sensor.hall_wall_switch_battery"
+  },
+  {
+    "type": "SWITCH",
+    "name": "bedroom",
+    "entityId": "sensor.bedroom_switch_action",
+    "batteryEntityId": "sensor.bedroom_switch_battery"
+  }
+]
 
 ```
