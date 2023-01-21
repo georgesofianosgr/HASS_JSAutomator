@@ -31,11 +31,11 @@ export class Automator {
     console.debug(`[createDevices] Creating Devices`);
     deviceBlueprints.forEach(blueprint => {
       if(blueprint.type === DeviceType.LIGHT) {
-        console.debug(`[createDevices] Creating Light ${blueprint.name}`);
+        console.debug(`[createDevices] Creating Light ${blueprint.name} with entityId ${blueprint.entityId}`);
         const device = new Light(blueprint.entityId, blueprint.name);
         Automator.Light[blueprint.name] = device;
       } else if(blueprint.type === DeviceType.SWITCH) {
-        console.debug(`[createDevices] Creating Switch ${blueprint.name}`);
+        console.debug(`[createDevices] Creating Switch ${blueprint.name} with entityId ${blueprint.entityId}`);
         const device = new Switch(blueprint.entityId, blueprint.name);
         Automator.Switch[blueprint.name] = device;
       }

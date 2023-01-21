@@ -11,6 +11,7 @@ export class Device {
     this.name = name;
   }
   addEvent(eventName: Event, callback: EventCallback) {
+    console.debug(`[Device.addEvent] ${eventName} handler registered for ${this.name}`);
     const eventCallbacks = this.events[eventName] ?? [];
     this.events[eventName] = [
       ...eventCallbacks,
