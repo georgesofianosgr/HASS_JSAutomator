@@ -5,8 +5,8 @@ export type SwitchPressEventCallback = (pressType: string, newState: Record<stri
 /* Switch is any device has a sensor.$NAME_action id */
 export class Switch extends Device {
   events: Record<string,Function[]> = {};
-  constructor(switchId: string,name: string) {
-    super(`entityId`,name)
+  constructor(entityId: string,name: string) {
+    super(entityId,name)
   }
 
   onLeftPress(clb: EventCallback) {
