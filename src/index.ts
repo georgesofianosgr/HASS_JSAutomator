@@ -8,6 +8,8 @@ import { Hass } from './core/hass';
 import { Device } from 'src/core/device';
 import { callEventHanlderForDevice, convertDevicesToEventDict } from './device/device.utils';
 
+const AUTOMATIONS_PATH = process.env.AUTOMATIONS_PATH ?? '/automations';
+
 // Need to add websocket as global for home-assistant-js-websocket
 const wnd: Record<string,any> = globalThis;
 wnd.WebSocket = ws;
@@ -31,7 +33,17 @@ const subscribeToEvents = () => {
   });
 }
 
+const checkEnvVars = () => {
+  if(!process.env.HASS_URL) {
+    throw new Error("HASS_URL environment variable does not exist");
+  }
+  if(!process.env.ACCESS_TOKEN) {
+    throw new Error("ACESS_TOKEN environment variable does not exist");
+  }
+}
+
 const main = async () => {
+  checkEnvVars();
   // Connect
   await Automator.initialize();
   // Load Automation Plugins
@@ -44,11 +56,11 @@ const main = async () => {
 const loadDevicesFile = () => {
   console.debug('[loadDevicesFile] Loading Devices');
   const fileName = "devices.json";
-  const directory = process.env.AUTOMATIONS_PATH;
+  const directory = AUTOMATIONS_PATH;
   const devicesFilePath = path.join(directory,fileName);
 
   if(!fs.existsSync(directory)) {
-    console.error('[loadDevicesFile] Automations directory not found');
+    console.error(`[loadDevicesFile] Automations directory (${AUTOMATIONS_PATH}) not found`);
     return [];
   }
 
@@ -76,10 +88,10 @@ const loadAutomationFile = async (filePath: string) => {
 
 async function loadAutomationModules() {
   console.debug('[loadAutomationModules] Loading Modules');
-  const directory = process.env.AUTOMATIONS_PATH;
+  const directory = AUTOMATIONS_PATH;
 
   if(!fs.existsSync(directory)) {
-    console.error('[loadAutomationModules] Automations directory not found');
+    console.error(`[loadAutomationModules] Automations directory (${AUTOMATIONS_PATH}) not found`);
     return [];
   }
 
