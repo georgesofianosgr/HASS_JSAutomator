@@ -11,7 +11,7 @@ const connect = async () => {
 }
 
 const sendMessage = (message: Message) => {
-  console.debug(`[sendMessage] ${message}`);
+  console.debug(`[sendMessage] ${JSON.stringify(message)}`);
   connection?.sendMessage(message);
 }
 
